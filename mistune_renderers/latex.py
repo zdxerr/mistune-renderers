@@ -49,7 +49,7 @@ class LatexRenderer(mistune.Renderer):
         return r'\texttt{%s}' % (text, )
 
     def hrule(self):
-        return r'\hrulefill'
+        return r'\hrulefill' + '\n'
 
     def footnotes(self, text):
         return text
