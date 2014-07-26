@@ -24,7 +24,8 @@ class LatexRenderer(mistune.Renderer):
         return enclose('quotation', text)
 
     def header(self, text, level, raw=None):
-        return '\\' + 'sub' * (level - 1) + 'section' + '{%s}\n' % (text)
+        tag = 'sub' * (level - 1) + 'section' if level < 4 else 'paragraph'
+        return '\\%s{%s}\n' % (tag, text)
 
     def list(self, body, ordered=True):
         return enclose('enumerate' if ordered else 'itemize', body)
