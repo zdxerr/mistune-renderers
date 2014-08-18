@@ -12,10 +12,29 @@ def enclose(tag, content):
     return '\n%s\n%s\n%s\n' % (BEGIN % (tag, ), content, END % (tag, ))
 
 
+def escape(text):
+    """Replace special characters with Latex-safe sequences."""
+
+    text = text.replace('\\', '\\textbackslash')
+    text = text.replace('&', '\\&')
+    text = text.replace('%', '\\%')
+    text = text.replace('$', '\\$')
+    text = text.replace('#', '\\#')
+    text = text.replace('_', '\\_')
+    text = text.replace('{', '\\{')
+    text = text.replace('}', '\\}')
+    text = text.replace('~', '\\textasciitilde')
+    text = text.replace('^', '\\textasciicircum')
+
+    return text
+
+
 class LatexRenderer(mistune.Renderer):
     """
 
     """
+
+
 
     def block_code(self, code, lang):
         return enclose('verbatim', code)
@@ -62,6 +81,9 @@ class LatexRenderer(mistune.Renderer):
 
     def reference(self, key):
         return r'\cite{%s}' % (key, )
+
+    def text(self, text):
+        return escape(text)
 
     def image(self, src, title, text):
        return enclose('figure', 

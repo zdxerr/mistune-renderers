@@ -12,8 +12,6 @@ root = os.path.dirname(__file__)
 base_path = os.path.join(root, 'latex')
 
 
-
-
 class TestLatexRenderer(unittest.TestCase):
     def setUp(self):
         self.latex_renderer = LatexRenderer()
